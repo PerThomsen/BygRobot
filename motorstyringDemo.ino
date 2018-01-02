@@ -27,15 +27,18 @@
  
 // functional connections
 #define MOTOR_B_PWM 10 // PIN D10 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA1) GRÅ
-#define MOTOR_B_DIR 11 // PIN D11 --> Motor B Input B --> MOTOR B  / Direction (IB1) HVID
+#define MOTOR_B_DIR 12 // PIN D12 --> Motor B Input B --> MOTOR B  / Direction (IB1) HVID
 
-#define MOTOR_A_PWM 5 // PIN D5 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA2) GUL
-#define MOTOR_A_DIR 6 // PIN D6 --> Motor B Input B --> MOTOR B  / Direction (IB2) ORANGE
+#define MOTOR_A_PWM 11 // PIN D11 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA2) GUL
+#define MOTOR_A_DIR 13 // PIN D13 --> Motor B Input B --> MOTOR B  / Direction (IB2) ORANGE
 
 // the actual values for "fast" and "slow" depend on the motor
-#define PWM_SLOW 50  // arbitrary slow speed PWM duty cycle
-#define PWM_FAST 200 // arbitrary fast speed PWM duty cycle
+#define PWM_SLOW 100  // arbitrary slow speed PWM duty cycle
+#define PWM_FAST 170 // arbitrary fast speed PWM duty cycle
 #define DIR_DELAY 1000 // brief delay for abrupt motor changes
+
+#define M_BACK LOW
+#define M_FORWARD HIGH
  
 void setup() {
   Serial.begin( 9600 );
@@ -59,26 +62,19 @@ void stopMotor() {
       digitalWrite( MOTOR_B_PWM, LOW );
 }
 
-void slowStart() {
-    for (int i=100; i <= PWM_FAST; i++){
+void slowStart(int direk) {
+    for (int i=PWM_SLOW; i <= PWM_FAST; i++){
+      
       analogWrite( MOTOR_B_PWM, 255-i ); // PWM speed = fast          
-      analogWrite( MOTOR_A_PWM, 255-i ); // PWM speed = fast          
+      analogWrite( MOTOR_A_PWM, i ); // PWM speed = fast          
       delay(10);
     }  
 }
 
-void dirFw(){
-  //set direction to Forward
-  digitalWrite( MOTOR_A_DIR, LOW ); 
-  digitalWrite( MOTOR_B_DIR, HIGH );   
+void motorDirection(bool mDir){
+  digitalWrite( MOTOR_A_DIR, mDir ); 
+  digitalWrite( MOTOR_B_DIR, mDir );   
 }
-
-void dirBk(){
-  //set direction to Back
-  digitalWrite( MOTOR_A_DIR, HIGH ); 
-  digitalWrite( MOTOR_B_DIR, LOW );   
-}
-
 
 void loop() {
   boolean isValidInput;
@@ -104,8 +100,10 @@ void loop() {
         Serial.println( "Fast forward..." );
         stopMotor();
         delay( DIR_DELAY );
-        dirFw();
-        slowStart();
+        motorDirection(M_FORWARD);
+        analogWrite( MOTOR_B_PWM, 255-PWM_FAST ); // PWM speed = fast          
+        analogWrite( MOTOR_A_PWM, 255-PWM_FAST ); // PWM speed = fast                  
+        //slowStart();
         
         isValidInput = true;
         break;      
@@ -118,11 +116,13 @@ void loop() {
  
          
       case '5': // 5) Fast reverse
-        Serial.println( "Fast forward..." );
+        Serial.println( "Fast reverse..." );
         stopMotor();
         delay( DIR_DELAY );
-        dirBk();
-        slowStart();
+        motorDirection(M_BACK);
+        analogWrite( MOTOR_B_PWM, PWM_FAST+30 ); // PWM speed = fast          
+        analogWrite( MOTOR_A_PWM, PWM_FAST ); // PWM speed = fast          
+        //slowStart();
         
         isValidInput = true;
         break;
@@ -136,4 +136,3 @@ void loop() {
  
   // repeat the main loop and redraw the menu...
 }
-/*EOF*/
