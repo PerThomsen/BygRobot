@@ -23,9 +23,6 @@
     https://www.bananarobotics.com/shop/How-to-use-the-HG7881-(L9110)-Dual-Channel-Motor-Driver-Module
  
   https://www.BananaRobotics.com
-
-Husk at bytte rundt på ledningerne til edn ene motor
-
 */
  
 // functional connections
@@ -36,13 +33,9 @@ Husk at bytte rundt på ledningerne til edn ene motor
 #define MOTOR_A_DIR 6 // PIN D6 --> Motor B Input B --> MOTOR B  / Direction (IB2) ORANGE
 
 // the actual values for "fast" and "slow" depend on the motor
-#define PWM_SLOW 100  // arbitrary slow speed PWM duty cycle
+#define PWM_SLOW 50  // arbitrary slow speed PWM duty cycle
 #define PWM_FAST 200 // arbitrary fast speed PWM duty cycle
 #define DIR_DELAY 1000 // brief delay for abrupt motor changes
-
-//Forward and back
-boolean FW = HIGH;
-boolean BK = LOW;
  
 void setup() {
   Serial.begin( 9600 );
@@ -67,17 +60,23 @@ void stopMotor() {
 }
 
 void slowStart() {
-    for (int i=PWM_SLOW; i <= PWM_FAST; i++){
+    for (int i=100; i <= PWM_FAST; i++){
       analogWrite( MOTOR_B_PWM, 255-i ); // PWM speed = fast          
       analogWrite( MOTOR_A_PWM, 255-i ); // PWM speed = fast          
       delay(10);
     }  
 }
 
-void directionMotor(boolean direction){
+void dirFw(){
+  //set direction to Forward
+  digitalWrite( MOTOR_A_DIR, LOW ); 
+  digitalWrite( MOTOR_B_DIR, HIGH );   
+}
+
+void dirBk(){
   //set direction to Back
-  digitalWrite( MOTOR_A_DIR, direction ); 
-  digitalWrite( MOTOR_B_DIR, direction );   
+  digitalWrite( MOTOR_A_DIR, HIGH ); 
+  digitalWrite( MOTOR_B_DIR, LOW );   
 }
 
 
@@ -105,7 +104,7 @@ void loop() {
         Serial.println( "Fast forward..." );
         stopMotor();
         delay( DIR_DELAY );
-        directionMotor(FW);
+        dirFw();
         slowStart();
         
         isValidInput = true;
@@ -122,7 +121,7 @@ void loop() {
         Serial.println( "Fast forward..." );
         stopMotor();
         delay( DIR_DELAY );
-        directionMotor(BK);
+        dirBk();
         slowStart();
         
         isValidInput = true;
