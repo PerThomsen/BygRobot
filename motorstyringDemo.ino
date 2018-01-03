@@ -1,38 +1,14 @@
 /*
-  HG7881_Motor_Driver_Example - Arduino sketch
-   
-  This example shows how to drive a motor with using HG7881 (L9110) Dual
-  Channel Motor Driver Module.  For simplicity, this example shows how to
-  drive a single motor.  Both channels work the same way.
-   
-  This example is meant to illustrate how to operate the motor driver
-  and is not intended to be elegant, efficient or useful.
-   
-  Connections:
-   
-    Arduino digital output D10 to motor driver input IA2.
-    Arduino digital output D11 to motor driver input IB2.
-    Motor driver VCC to operating voltage 5V.
-    Motor driver GND to common ground.
-    Motor driver MOTOR B screw terminals to a small motor.
-     
-  Related Banana Robotics items:
-   
-    BR010038 HG7881 (L9110) Dual Channel Motor Driver Module
-    https://www.BananaRobotics.com/shop/HG7881-(L9110)-Dual-Channel-Motor-Driver-Module
-    https://www.bananarobotics.com/shop/How-to-use-the-HG7881-(L9110)-Dual-Channel-Motor-Driver-Module
- 
-  https://www.BananaRobotics.com
+  HG7881_Motor_Driver_Example - Arduino sketch      
 */
  
-// functional connections
-#define MOTOR_B_PWM 10 // PIN D10 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA1) GRÅ
-#define MOTOR_B_DIR 12 // PIN D12 --> Motor B Input B --> MOTOR B  / Direction (IB1) HVID
+// Right motor
+#define MOTOR_R_PWM 10 // PIN D10 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA1) GRÅ
+#define MOTOR_R_DIR 12 // PIN D12 --> Motor B Input B --> MOTOR B  / Direction (IB1) HVID
+// Left motor
+#define MOTOR_L_PWM 11 // PIN D11 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA2) GUL
+#define MOTOR_L_DIR 13 // PIN D13 --> Motor B Input B --> MOTOR B  / Direction (IB2) ORANGE
 
-#define MOTOR_A_PWM 11 // PIN D11 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA2) GUL
-#define MOTOR_A_DIR 13 // PIN D13 --> Motor B Input B --> MOTOR B  / Direction (IB2) ORANGE
-
-// the actual values for "fast" and "slow" depend on the motor
 #define PWM_SLOW 100  // arbitrary slow speed PWM duty cycle
 #define PWM_FAST 170 // arbitrary fast speed PWM duty cycle
 #define DIR_DELAY 1000 // brief delay for abrupt motor changes
@@ -43,37 +19,42 @@
 void setup() {
   Serial.begin( 9600 );
 
-  pinMode( MOTOR_A_DIR, OUTPUT );
-  pinMode( MOTOR_A_PWM, OUTPUT );
-  digitalWrite( MOTOR_A_DIR, LOW );
-  digitalWrite( MOTOR_A_PWM, LOW );
+  pinMode( MOTOR_L_DIR, OUTPUT );
+  pinMode( MOTOR_L_PWM, OUTPUT );
+  digitalWrite( MOTOR_L_DIR, LOW );
+  digitalWrite( MOTOR_L_PWM, LOW );
 
-  pinMode( MOTOR_B_DIR, OUTPUT );
-  pinMode( MOTOR_B_PWM, OUTPUT );
-  digitalWrite( MOTOR_B_DIR, LOW );
-  digitalWrite( MOTOR_B_PWM, LOW );
+  pinMode( MOTOR_R_DIR, OUTPUT );
+  pinMode( MOTOR_R_PWM, OUTPUT );
+  digitalWrite( MOTOR_R_DIR, LOW );
+  digitalWrite( MOTOR_R_PWM, LOW );
 }
 
 void stopMotor() {
       // always stop motors briefly before abrupt changes
-      digitalWrite( MOTOR_A_DIR, LOW );
-      digitalWrite( MOTOR_A_PWM, LOW );
-      digitalWrite( MOTOR_B_DIR, LOW );
-      digitalWrite( MOTOR_B_PWM, LOW );
+      digitalWrite( MOTOR_L_DIR, LOW );
+      digitalWrite( MOTOR_L_PWM, LOW );
+      digitalWrite( MOTOR_R_DIR, LOW );
+      digitalWrite( MOTOR_R_PWM, LOW );
 }
 
 void slowStart(int direk) {
+    int j;
     for (int i=PWM_SLOW; i <= PWM_FAST; i++){
-      
-      analogWrite( MOTOR_B_PWM, 255-i ); // PWM speed = fast          
-      analogWrite( MOTOR_A_PWM, i ); // PWM speed = fast          
+      if (direk == 1) {
+        j = invertOurValue( i );
+      } else {
+        j = i;
+      }
+      analogWrite( MOTOR_R_PWM, j );           
+      analogWrite( MOTOR_L_PWM, j );           
       delay(10);
     }  
 }
 
 void motorDirection(bool mDir){
-  digitalWrite( MOTOR_A_DIR, mDir ); 
-  digitalWrite( MOTOR_B_DIR, mDir );   
+  digitalWrite( MOTOR_L_DIR, mDir ); 
+  digitalWrite( MOTOR_R_DIR, mDir );   
 }
 
 void loop() {
@@ -101,9 +82,9 @@ void loop() {
         stopMotor();
         delay( DIR_DELAY );
         motorDirection(M_FORWARD);
-        analogWrite( MOTOR_B_PWM, 255-PWM_FAST ); // PWM speed = fast          
-        analogWrite( MOTOR_A_PWM, 255-PWM_FAST ); // PWM speed = fast                  
-        //slowStart();
+        //analogWrite( MOTOR_R_PWM, 255-PWM_FAST ); // PWM speed = fast          
+        //analogWrite( MOTOR_L_PWM, 255-PWM_FAST ); // PWM speed = fast                  
+        slowStart(0);
         
         isValidInput = true;
         break;      
@@ -120,9 +101,9 @@ void loop() {
         stopMotor();
         delay( DIR_DELAY );
         motorDirection(M_BACK);
-        analogWrite( MOTOR_B_PWM, PWM_FAST+30 ); // PWM speed = fast          
-        analogWrite( MOTOR_A_PWM, PWM_FAST ); // PWM speed = fast          
-        //slowStart();
+        //analogWrite( MOTOR_R_PWM, PWM_FAST+30 ); // PWM speed = fast          
+        //analogWrite( MOTOR_L_PWM, PWM_FAST ); // PWM speed = fast          
+        slowStart(1);
         
         isValidInput = true;
         break;
