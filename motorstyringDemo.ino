@@ -57,6 +57,10 @@ void motorDirection(bool mDir){
   digitalWrite( MOTOR_R_DIR, mDir );   
 }
 
+int invertOurValue(int input) {
+  return 255 - input;
+}
+
 void loop() {
   boolean isValidInput;
   // draw a menu on the serial port
