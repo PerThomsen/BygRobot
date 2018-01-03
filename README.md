@@ -2,6 +2,8 @@
 
 
 Motor driveren er beskrevet her: https://www.bananarobotics.com/shop/How-to-use-the-HG7881-(L9110)-Dual-Channel-Motor-Driver-Module<br />
+Anden kode for motorstyring:<br />
+http://diyprojects.eu/how-to-use-h-bridge-hg7881-with-external-power-supply-and-arduino/<br />
 <br />
 Herefter lidt link til forskellige sider med Speed sensore:<br />
 http://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/<br />
