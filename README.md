@@ -9,10 +9,9 @@ Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 - [ ] Få robotten til at dreje/vende
 - [ ] Lave kode for sensorene
 - [ ] Sammenbyg det hele
+<br /><br />
 
-
-
-Herefter lidt link til forskellige sider med Speed sensore:<br />
+###### Herefter lidt link til forskellige sider med Speed sensore:<br />
 http://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/<br />
 http://make.robimek.com/lm393-ir-speed-sensor-using/<br />
 https://www.pjrc.com/teensy/td_libs_Encoder.html<br />
