@@ -1,13 +1,11 @@
 # Byg selvkørende robot
 
 
-Motor driveren er beskrevet her: <br />
-https://www.bananarobotics.com/shop/How-to-use-the-HG7881-(L9110)-Dual-Channel-Motor-Driver-Module<br />
-Anden kode for motorstyring:<br />
-http://diyprojects.eu/how-to-use-h-bridge-hg7881-with-external-power-supply-and-arduino/<br />
+[Motor driveren er beskrevet her](https://www.bananarobotics.com/shop/How-to-use-the-HG7881-(L9110)-Dual-Channel-Motor-Driver-Module)<br />
+[Alternativ kode for motorstyring](http://diyprojects.eu/how-to-use-h-bridge-hg7881-with-external-power-supply-and-arduino/)<br />
 <br />
 Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
-- [x] Få robotten til at køre ligeud
+- [ ] Få robotten til at køre ligeud
 - [ ] Få robotten til at dreje/vende
 - [ ] Lave kode for sensorene
 - [ ] Sammenbyg det hele
