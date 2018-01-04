@@ -1,7 +1,8 @@
 # Byg selvkørende robot
 
 
-Motor driveren er beskrevet her: https://www.bananarobotics.com/shop/How-to-use-the-HG7881-(L9110)-Dual-Channel-Motor-Driver-Module<br />
+Motor driveren er beskrevet her: <br />
+https://www.bananarobotics.com/shop/How-to-use-the-HG7881-(L9110)-Dual-Channel-Motor-Driver-Module<br />
 Anden kode for motorstyring:<br />
 http://diyprojects.eu/how-to-use-h-bridge-hg7881-with-external-power-supply-and-arduino/<br />
 <br />
