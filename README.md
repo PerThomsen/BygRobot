@@ -6,6 +6,14 @@ https://www.bananarobotics.com/shop/How-to-use-the-HG7881-(L9110)-Dual-Channel-M
 Anden kode for motorstyring:<br />
 http://diyprojects.eu/how-to-use-h-bridge-hg7881-with-external-power-supply-and-arduino/<br />
 <br />
+Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
+- [x] Få robotten til at køre ligeud
+- [ ] Få robotten til at dreje/vende
+- [ ] Lave kode for sensorene
+- [ ] Sammenbyg det hele
+
+
+
 Herefter lidt link til forskellige sider med Speed sensore:<br />
 http://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/<br />
 http://make.robimek.com/lm393-ir-speed-sensor-using/<br />
