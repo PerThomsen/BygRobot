@@ -20,8 +20,7 @@
  
 void setup() {
   Serial.begin( 9600 );
-
-  
+ 
   pinMode( MOTOR_L_DIR, OUTPUT );
   pinMode( MOTOR_L_PWM, OUTPUT );
   digitalWrite( MOTOR_L_DIR, LOW );
@@ -39,6 +38,22 @@ void stopMotor() {
       digitalWrite( MOTOR_L_PWM, LOW );
       digitalWrite( MOTOR_R_DIR, LOW );
       digitalWrite( MOTOR_R_PWM, LOW );
+}
+
+void turnLR() {
+      // Turn left or right
+      // Der skal modtages 2 parametre
+      // L/R og faktor for hastighedsforskel
+      // kald speed med de respektive paramertre
+}
+
+void spinLR() {
+      // Spin left or right
+      // Der skal modtages 1 parameter (L/R)
+      // Motorene sættes til at køre modsat hinanden
+      // digitalWrite( MOTOR_L_DIR, M_FORWARD ); 
+      // digitalWrite( MOTOR_R_DIR, M_REVERSE );   
+ 
 }
 
 void speed(int speedL, int speedR, int mDir) {
