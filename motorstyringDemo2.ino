@@ -21,7 +21,7 @@
 void setup() {
   Serial.begin( 9600 );
 
-  int bias = 0; // Compensation to right motor
+  
   pinMode( MOTOR_L_DIR, OUTPUT );
   pinMode( MOTOR_L_PWM, OUTPUT );
   digitalWrite( MOTOR_L_DIR, LOW );
@@ -42,7 +42,7 @@ void stopMotor() {
 }
 
 void speed(int speedL, int speedR, int mDir) {
-    if (direk == HIGH) {
+    if (mDir == HIGH) {
         //If reverse
         speedL = invertOurValue( speedL );
         speedR = invertOurValue( speedR );
@@ -50,8 +50,8 @@ void speed(int speedL, int speedR, int mDir) {
     digitalWrite( MOTOR_L_DIR, mDir ); 
     digitalWrite( MOTOR_R_DIR, mDir );   
 
-    analogWrite( MOTOR_L_PWM, speed );           
-    analogWrite( MOTOR_R_PWM, speed );           
+    analogWrite( MOTOR_L_PWM, speedL );           
+    analogWrite( MOTOR_R_PWM, speedR );           
 }
 
 
@@ -61,7 +61,7 @@ int invertOurValue(int input) {
 
 void loop() {
   boolean isValidInput;
-  // draw a menu on the serial port
+  int bias = 0; // Compensation to right motor  // draw a menu on the serial port
   Serial.println( "-----------------------------" );
   Serial.println( "MENU:" );
   Serial.println( "1) Fast forward" );
