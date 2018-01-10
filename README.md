@@ -3,6 +3,7 @@
 
 - [Motor driveren er beskrevet her](https://www.bananarobotics.com/shop/How-to-use-the-HG7881-(L9110)-Dual-Channel-Motor-Driver-Module)<br />
 - [Alternativ kode for motorstyring](http://diyprojects.eu/how-to-use-h-bridge-hg7881-with-external-power-supply-and-arduino/)<br />
+- [Kode fra artikel i AOD](https://github.com/kneth/ArduRobo)<br />
 <br />
 Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 
