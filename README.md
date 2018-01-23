@@ -14,8 +14,8 @@ Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 <br /><br />
 
 ###### Herefter lidt link til forskellige sider med Speed sensore:<br />
-http://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/<br />
-http://make.robimek.com/lm393-ir-speed-sensor-using/<br />
+- [God teoretisk forklaring](http://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/)<br />
+- [Speed sensor med potentiometer (tyrkisk)](http://make.robimek.com/lm393-ir-speed-sensor-using/)<br />
 https://www.pjrc.com/teensy/td_libs_Encoder.html<br />
 http://www.electroschematics.com/10494/arduino-optical-position-rotary-encoder/<br />
 http://www.robotc.net/wikiarchive/Tutorials/Arduino_Projects/Mobile_Robotics/VEX/Using_encoders_to_drive_straight<br />
