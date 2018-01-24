@@ -1,8 +1,9 @@
-// Simple_Motor_Speed_Control 8/13/09 Joe Pardue
-// This program is based on other Arduino code discussed
-// in Smiley's Workshops 9 through 16.
-
-// Open in NotePad then copy paste to a new Arduino project
+/* 
+ *  http://www.nutsvolts.com/magazine/article/smileys_workshop_an_avr_c_programming_series_part_16
+ */Simple_Motor_Speed_Control 8/13/09 Joe Pardue
+ * This program is based on other Arduino code discussed
+ * in Smiley's Workshops 9 through 16.
+*/
 
 #define ADJUST 5 // Increment or decrement
 
