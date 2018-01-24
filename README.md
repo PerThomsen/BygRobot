@@ -21,6 +21,6 @@ Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 - [Using Encoders to Drive Straight - Meget udførlig](http://www.robotc.net/wikiarchive/Tutorials/Arduino_Projects/Mobile_Robotics/VEX/Using_encoders_to_drive_straight)<br />
 - [Speedcontrole med interrupt](https://brainy-bits.com/blogs/tutorials/speed-sensor-with-arduino)<br />
 - [Arduino playground (med interrupts) - Grundlag for ***SpeedSensor3***](http://playground.arduino.cc/Main/RotaryEncoders#Example16)<br />
-[Ny](http://www.nutsvolts.com/magazine/article/smileys_workshop_an_avr_c_programming_series_part_17)<br />
-[Ny2](https://arduino.stackexchange.com/questions/11962/how-to-read-data-from-a-rotary-encoder-with-atmega328)<br />
+[God teori om motorer og Sensore](http://www.nutsvolts.com/magazine/article/smileys_workshop_an_avr_c_programming_series_part_17)<br />
+[Fra forum](https://arduino.stackexchange.com/questions/11962/how-to-read-data-from-a-rotary-encoder-with-atmega328)<br />
 
