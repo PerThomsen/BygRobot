@@ -22,4 +22,4 @@ Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 - [Speedcontrole med interrupt](https://brainy-bits.com/blogs/tutorials/speed-sensor-with-arduino)<br />
 - [Arduino playground (med interrupts) - Grundlag for ***SpeedSensor3***](http://playground.arduino.cc/Main/RotaryEncoders#Example16)<br />
 - [God teori om motorer og Sensore - Grundlag for ***Simple_Motor_Speed_Control***](http://www.nutsvolts.com/magazine/article/smileys_workshop_an_avr_c_programming_series_part_17)<br />
-
+- [Teori - Tachometers vs Encoders](https://www.precisionmicrodrives.com/tech-blog/2015/12/03/tachometers-vs-encoders-whats-difference)<br />
