@@ -19,9 +19,9 @@ Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 - [Teensyduino (incl. Flip-flop)](https://www.pjrc.com/teensy/td_libs_Encoder.html)<br />
 - [Simpel pulslæser - Grundlag for SpeedSensor2](http://www.electroschematics.com/10494/arduino-optical-position-rotary-encoder/)<br />
 - [Using Encoders to Drive Straight - Meget udførlig](http://www.robotc.net/wikiarchive/Tutorials/Arduino_Projects/Mobile_Robotics/VEX/Using_encoders_to_drive_straight)<br />
-- [TST](http://www.dummies.com/computers/arduino/how-to-control-the-speed-of-a-dc-motor-with-the-arduino/)<br />
-https://create.arduino.cc/projecthub/mitov/measure-motor-speed-rpm-with-optocoupler-and-encoder-disk-c3a0e4<br />
-https://brainy-bits.com/blogs/tutorials/speed-sensor-with-arduino<br />
+- [How to Control the Speed of a DC Motor with the Arduino](http://www.dummies.com/computers/arduino/how-to-control-the-speed-of-a-dc-motor-with-the-arduino/)<br />
+- [Measure motor speed (RPM) with Optocoupler and Encoder disk](https://create.arduino.cc/projecthub/mitov/measure-motor-speed-rpm-with-optocoupler-and-encoder-disk-c3a0e4)<br />
+- [Læs](https://brainy-bits.com/blogs/tutorials/speed-sensor-with-arduino)<br />
 <br />
 <br />
 http://playground.arduino.cc/Main/RotaryEncoders#Example16<br />
