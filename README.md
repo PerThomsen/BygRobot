@@ -17,7 +17,7 @@ Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 - [God teoretisk forklaring](http://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/)<br />
 - [Speed sensor med potentiometer (tyrkisk)](http://make.robimek.com/lm393-ir-speed-sensor-using/)<br />
 - [Teensyduino (incl. Flip-flop)](https://www.pjrc.com/teensy/td_libs_Encoder.html)<br />
-http://www.electroschematics.com/10494/arduino-optical-position-rotary-encoder/<br />
+- [Simpel pulslæser - Grundlag for SpeedSensor2](http://www.electroschematics.com/10494/arduino-optical-position-rotary-encoder/)<br />
 http://www.robotc.net/wikiarchive/Tutorials/Arduino_Projects/Mobile_Robotics/VEX/Using_encoders_to_drive_straight<br />
 http://www.dummies.com/computers/arduino/how-to-control-the-speed-of-a-dc-motor-with-the-arduino/<br />
 https://create.arduino.cc/projecthub/mitov/measure-motor-speed-rpm-with-optocoupler-and-encoder-disk-c3a0e4<br />
