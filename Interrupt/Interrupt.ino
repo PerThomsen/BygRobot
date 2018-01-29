@@ -9,7 +9,7 @@
 int maxPwm = 128;   // max pwm amount
 int myPwm = 0;      // current pwm value
 int phase = 1;      // current beat phase
-int greenPin = 11;  // output led pin
+int greenPin = 13;  // output led pin
 int buttonPin = 9;  // input button pin
 int buttonFlag = 1; // button flag for debounce
 
