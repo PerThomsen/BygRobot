@@ -69,13 +69,13 @@ void setup() {
   prevstate = LOW;  
 }
 
- 
+void measureRMP() { 
  // RPM Measurement
-  currentstate = digitalRead(dataIN); // Read IR sensor state
- if( prevstate != currentstate) // If there is change in input
-   {
-     if( currentstate == HIGH ) // If input only changes from LOW to HIGH
-       {
+ currentstate = digitalRead(dataIN); // Read IR sensor state
+ // If there is change in input
+ if( prevstate != currentstate) {
+     // If input only changes from LOW to HIGH
+     if( currentstate == HIGH )  {
          duration = ( micros() - prevmillis ); // Time difference between revolution in microsecond
          rpm = (60000000/duration); // rpm = (1/ time millis)*1000*1000*60;
          prevmillis = micros(); // store time for nect revolution calculation
@@ -84,12 +84,12 @@ void setup() {
   prevstate = currentstate; // store this scan (prev scan) data for next scan
   
   // LCD Display
-  if( ( millis()-refresh ) >= 100 )
-    {
+  if( ( millis()-refresh ) >= 100 )  {
        Serial.println(rpm);  
     }
 
 }
+
 void stopMotor() {
       // always stop motors briefly before abrupt changes
       digitalWrite( MOTOR_L_DIR, LOW );
@@ -160,6 +160,7 @@ void control_motor() {
   Moto.setSpeed('B', right);
   delay(250);
 }
+
 void MOTORSTYR() {
   boolean isValidInput;
   int bias = 0; // Compensation to right motor  // draw a menu on the serial port
