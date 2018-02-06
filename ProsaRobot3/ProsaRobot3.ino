@@ -1,20 +1,16 @@
 /* januar 2018 Erik Christensen
- * Arduino sketch-board version 1.8.5
+ * Sammenlæg med motorstyringDemo2
  * 
  * Styring af trehjulet selvkørende robotbil. 
  * Undgå forhindringer og 
  * undgå at køre ud over en kant 
  * 
- * Controlleren er et Arduino Duamillenova board, med ATmega320P processor. 
+ * Controlleren er et Arduino Uno board, med ATmega320P processor. 
  * 
- * Kørsel og styring er med to modificerede servoer til de drivende hjul 
- * Et lille coaster wheel holder balancen
  * 
  * Sensorer:
  * Ping-sensor (ultralyd) placeret centralt fortil
- * IR sensor (infrarød) skråt 45 grader nedad og 45 grader til siden 
- * placeret i hvert af de forreste hjørner.
- */
+ * 2 placeret i hvert af de forreste hjørner og 1 forest
 
 /* Program structure:
  *  GLOBAL SETTINGS
@@ -30,10 +26,13 @@
  */
 
                                            //=============== GLOBAL SETTINGS
-#include <Servo.h> // include library
 
-Servo servoL;  // initiate servo instance
-Servo servoR;  // initiate servo instance  
+// Left motor
+#define MOTOR_L_PWM 11 // PIN D11 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA2) GUL
+#define MOTOR_L_DIR 13 // PIN D13 --> Motor B Input B --> MOTOR B  / Direction (IB2) ORANGE
+// Right motor
+#define MOTOR_R_PWM 10 // PIN D10 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA1) GRÅ
+#define MOTOR_R_DIR 12 // PIN D12 --> Motor B Input B --> MOTOR B  / Direction (IB1) HVID
 
 const int servoLPin = 10; // setting pins
 const int servoRPin = 11;
@@ -55,8 +54,16 @@ int rightAngle = 0;  // servo position in degrees (motor speed)
 void setup() {                              //==================== SETUP
   // put your setup code here, to run once:
   Serial.begin(9600);         // activating serial communication
-  servoL.attach(servoLPin);   // attaching servo to pin
-  servoR.attach(servoRPin);   // attaching servo to pin 
+
+  pinMode( MOTOR_L_DIR, OUTPUT );
+  pinMode( MOTOR_L_PWM, OUTPUT );
+  digitalWrite( MOTOR_L_DIR, LOW );
+  digitalWrite( MOTOR_L_PWM, LOW );
+
+  pinMode( MOTOR_R_DIR, OUTPUT );
+  pinMode( MOTOR_R_PWM, OUTPUT );
+  digitalWrite( MOTOR_R_DIR, LOW );
+  digitalWrite( MOTOR_R_PWM, LOW );
 }
 
 void loop() {                               //==================== LOOP
@@ -119,7 +126,7 @@ void print_states() {
   Serial.print(pingState);
   Serial.print("\tIR Left: ");
   Serial.print(irLstate);
-  Serial.print(\t"IR Right: ");
+  Serial.print("\tIR Right: ");
   Serial.print(irRstate);
   Serial.print("\tmoState: ");
   Serial.print(moState);
