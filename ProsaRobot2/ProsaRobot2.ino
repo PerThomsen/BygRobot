@@ -128,7 +128,7 @@ void print_states() {
 
                                           //======================== PING STATE
 // function getPingState måler afstand og returnerer pingState
-long getPingState() {
+int getPingState() {
 
 //local variables:
   long duration;
