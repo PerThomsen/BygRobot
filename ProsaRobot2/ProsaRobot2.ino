@@ -130,11 +130,11 @@ void print_states() {
 // function getPingState måler afstand og returnerer pingState
 int getPingState() {
 
-//local variables:
+  //local variables:
   long duration;
   int cm = 0;
 
-// activate a ping
+  // activate a ping
   pinMode(pingPin, OUTPUT);
   digitalWrite(pingPin, LOW);
   delayMicroseconds(2);
@@ -142,12 +142,12 @@ int getPingState() {
   delayMicroseconds(5);
   digitalWrite(pingPin, LOW);
 
-// get distance in cm
+  // get distance in cm
   pinMode(pingPin, INPUT);
   duration = pulseIn(pingPin, HIGH); // tid til ekko registreres
   cm = duration / 29 / 2;
 
-// evaluate to state
+  // evaluate to state
   pingState = 0;
   if (cm <= 10 ){ pingState = 1; }
   if (cm > 10 && cm < 25){ pingState = 2; }
@@ -175,9 +175,10 @@ int getIRstate (int sensorpin) {
 
                                                 //================= MOSTATE       
 void setmoState()  { 
-// function getmoState evaluates IR and PING and sets moState
-// irStates 1: upstackle 2: over the edge
-  /* moState for each combinaton of irLstate and irRstate
+  /* function getmoState evaluates IR and PING and sets moState
+   * irStates 1: upstackle 2: over the edge
+   * 
+   * moState for each combinaton of irLstate and irRstate
    * 0  0   0 forward
    * 0  1   1 left
    * 0  2   1 left
@@ -209,8 +210,8 @@ void setmoState()  {
    } 
 
 /*
-// combine with pingstate 
-// irStates 1: upstackle 2: over the edge
+  // combine with pingstate 
+  // irStates 1: upstackle 2: over the edge
   if (pingState == 1) {
     if (moState != 4) { moState = 3; } // spin left
   }
