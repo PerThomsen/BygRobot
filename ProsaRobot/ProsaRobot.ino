@@ -21,7 +21,11 @@
  *  
  */
 
-                                           //=============== GLOBAL SETTINGS
+                                                  //=============== GLOBAL SETTINGS
+                                        //=============== Benforbindelser
+// Sætter ben til hastighedssensorer 
+#define encoderInV 8 // input venstre
+#define encoderInH 9 // input højre 
 
 // Venstre motor benforbindelser
 #define MOTOR_L_PWM 11 // PIN D11 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA2) GUL
@@ -30,15 +34,20 @@
 #define MOTOR_R_PWM 10 // PIN D10 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA1) GRÅ
 #define MOTOR_R_DIR 12 // PIN D12 --> Motor B Input B --> MOTOR B  / Direction (IB1) HVID
 
+                                        //=============== Konstanter 
 // Prefixed hastigheder
 #define PWM_SLOW 100  // Fastsætter lav hastighed PWM duty cycle
 #define PWM_MID 150 // Fastsætter medium hastighedd PWM duty cycle
 #define PWM_FAST 200 // Fastsætter hurtig hastighed PWM duty cycle
 #define DIR_DELAY 1000 // Kort delay for at gøre motor klar til ændringer
 
+// Sætter retningskonstanter
 #define M_FORWARD LOW
 #define M_REVERSE HIGH
 
+int bias = 0; // Kompensation til højre motor (for at den kører ligeud)
+
+                                                   //=============== SETUP
 void setup() {
   // Init forbindelse til seriel monitor
   Serial.begin( 9600 );
@@ -56,20 +65,14 @@ void setup() {
   digitalWrite( MOTOR_R_PWM, LOW );
 }
 
+// Inverter
+int invertOurValue(int input) {
+  return 255 - input;
+}
+
 void measureRMP() { 
  // Aflæs omdrejninger (RPM Measurement)
- currentstate = digitalRead(dataIN); // Aflæs IR-sensor tilstand/status
- // Hvis der er ændringer i tilstand/status
- if( prevstate != currentstate) {
-     // Kun hvis input skifter fra LOW til HIGH
-     if( currentstate == HIGH )  {
-         duration = ( micros() - prevmillis ); // Time difference between revolution in microsecond
-         rpm = (60000000/duration); // rpm = (1/ time millis)*1000*1000*60;
-         prevmillis = micros(); // store time for nect revolution calculation
-       }
-   }
-  prevstate = currentstate; // store this scan (prev scan) data for next scan
-  
+}
 
 void stopMotor() {
       // Altid stoppe motoren kortvarigt, for at gøre den klar til ændringer
@@ -95,6 +98,20 @@ void spinLR() {
  
 }
 
+void runFW(){
+  // Kør forlæns
+    stopMotor();
+    delay( DIR_DELAY );
+    speed(PWM_FAST, PWM_FAST + bias, M_FORWARD);
+}
+
+void runREW(){
+  // Kør baglæns
+  stopMotor();
+  delay( DIR_DELAY );
+  speed(PWM_FAST, PWM_FAST + bias, M_REVERSE);
+}
+
 void speed(int speedL, int speedR, int mDir) {
     if (mDir == HIGH) {
         //Hvis baglæns
@@ -108,13 +125,7 @@ void speed(int speedL, int speedR, int mDir) {
     analogWrite( MOTOR_R_PWM, speedR );           
 }
 
-
-int invertOurValue(int input) {
-  return 255 - input;
-}
-
-//Main
-void loop() {
+void motorTest() {
   boolean isValidInput;
   int bias = 0; // Kompensation til højre motor (for at den kører ligeud)
   // draw a menu on the serial port
@@ -137,10 +148,7 @@ void loop() {
     {
       case '1': // 1) Fast forward
         Serial.println( "Fast forward..." );
-        stopMotor();
-        delay( DIR_DELAY );
-        speed(PWM_FAST, PWM_FAST + bias, M_FORWARD);
-        
+        runFW();
         isValidInput = true;
         break;      
                   
@@ -153,10 +161,7 @@ void loop() {
          
       case '5': // 5) Fast reverse
         Serial.println( "Fast reverse..." );
-        stopMotor();
-        delay( DIR_DELAY );
-        speed(PWM_FAST, PWM_FAST + bias, M_REVERSE);
-        
+        runREW();
         isValidInput = true;
         break;
                   
@@ -168,4 +173,11 @@ void loop() {
   } while( isValidInput == true );
  
   // Main slutter, og starter forfra.
+}
+
+//Main
+void loop() {
+  delay(1000);
+  runFW();
+  motorTest();
 }
