@@ -1,7 +1,7 @@
 /*
  * Robotbyggeprojekt af 'Elektronik & Mekanik' februar 2018
  * 
- * Styring af trehjulet selvkørende robotbil. 
+ * Styring af trehjulet autonom robotbil. 
  * Undgå forhindringer og undgå at køre ud over en kant
  *  
  * Sensorer:
@@ -183,17 +183,19 @@ void motorTest() {
   boolean isValidInput;
   int bias = 0; // Kompensation til højre motor (for at den kører ligeud)
   // draw a menu on the serial port
+  /*
   Serial.println( "-----------------------------" );
   Serial.println( "MENU:" );
   Serial.println( "1) Fast forward" );
   Serial.println( "3) Soft stop (coast)" );
   Serial.println( "5) Fast reverse" );
   Serial.println( "-----------------------------" );
+  /*/
   do
   {
     byte c;
     // get the next character from the serial port
-    Serial.print( "?" );
+    //Serial.print( "?" );
     while( !Serial.available() )
       ; // LOOP...
     c = Serial.read();
@@ -201,20 +203,20 @@ void motorTest() {
     switch( c )
     {
       case '1': // 1) Fast forward
-        Serial.println( "Fast forward..." );
+        //Serial.println( "Fast forward..." );
         runFW();
         isValidInput = true;
         break;      
                   
       case '3': // 3) Soft stop (preferred)
-        Serial.println( "Soft stop (coast)..." );
+        //Serial.println( "Soft stop (coast)..." );
         stopMotor();
         isValidInput = true;
         break;      
  
          
       case '5': // 5) Fast reverse
-        Serial.println( "Fast reverse..." );
+        //Serial.println( "Fast reverse..." );
         runREW();
         isValidInput = true;
         break;
@@ -224,18 +226,22 @@ void motorTest() {
         isValidInput = false;
         break;
     }
+    measureRMP();
+
   } while( isValidInput == true );
- 
+  
   // Main slutter, og starter forfra.
 }
 
 //Main
 void loop() {
+  /*
   if (first == 1){
-    //delay(1000);
+    delay(1000);
     first = 0;
-  //}
-  runREW();
-  //motorTest();
-  measureRMP();
+  }
+  */
+  //runREW();
+  motorTest();
+  //measureRMP();
 }
