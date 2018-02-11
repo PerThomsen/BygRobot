@@ -5,65 +5,61 @@
     -Tested at TechNode Protolabz
     -www.electroschematics.com/
     */
-    const int encoderIn1 = 8; // input pin for the interrupter 
-    const int encoderIn2 = 9; // input pin for the interrupter 
-    const int statusLED = 13; // Output pin for Status indicator
+    const int encoderInV = 8; // input venstre 
+    const int encoderInH = 9; // input højre 
 
-    int detectState1=0; // Variable for reading the encoder status
-    int detectState2=0; // Variable for reading the encoder status
+    int detectStateV=0; // Variable for reading the encoder status
+    int detectStateH=0; // Variable for reading the encoder status
     int counter;
-    int lastState1;
-    int newState1;
-    int counter1;
-    int lastState2;
-    int newState2;
-    int counter2;
+    int lastStateV;
+    int newStateV;
+    int counterV;
+    int lastStateH;
+    int newStateH;
+    int counterH;
 
     void setup() {
        Serial.begin( 9600 );
-       pinMode(encoderIn1, INPUT); //Set pin 8 as input
-       pinMode(encoderIn2, INPUT); //Set pin 9 as input
-       pinMode(statusLED, OUTPUT); //Set pin 13 as output
+       pinMode(encoderInV, INPUT); //Set pin 8 as input
+       pinMode(encoderInH, INPUT); //Set pin 9 as input
     }
     
     void loop() {
-       detectState1=digitalRead(encoderIn1);
-       detectState2=digitalRead(encoderIn2);
+       detectStateV=digitalRead(encoderInV);
+       detectStateH=digitalRead(encoderInH);
        counter++;
        
-       if (detectState1 == HIGH) { //If encoder output is high
-          digitalWrite(statusLED, HIGH); //Turn on the status LED
-          newState1 = 1;
+       if (detectStateV == HIGH) { //If encoder output is high
+          newStateV = 1;
        } else {
-          digitalWrite(statusLED, LOW); //Turn off the status LED
-          newState1 = 0;          
+          newStateV = 0;          
        }
-       if (lastState1 == newState1) {
-        if (lastState1 == 0) lastState1 = 1; else lastState1 = 0;
-        counter1++;
+       if (lastStateV == newStateV) {
+        if (lastStateV == 0) lastStateV = 1; else lastStateV = 0;
+        counterV++;
         //Serial.println(counter);
        }
 
-       if (detectState2 == HIGH) { //If encoder output is high
-          newState2 = 1;
+       if (detectStateH == HIGH) { //If encoder output is high
+          newStateH = 1;
        } else {
-          newState2 = 0;          
+          newStateH = 0;          
        }
-       if (lastState2 == newState2) {
-        if (lastState2 == 0) lastState2 = 1; else lastState2 = 0;
-        counter2++;
+       if (lastStateH == newStateH) {
+        if (lastStateH == 0) lastStateH = 1; else lastStateH = 0;
+        counterH++;
         //Serial.println(counter);
        }
-      if (counter1 != counter2) {
+      if (counterV != counterH) {
         Serial.print("Cnt1: ");  
-        Serial.print(counter1);
+        Serial.print(counterV);
         Serial.print(" Cnt2: ");  
-        Serial.println(counter2);
+        Serial.println(counterH);
       }
       
       if (counter == 10) {
-        counter1 = 0;
-        counter2 = 0;
+        counterV = 0;
+        counterH = 0;
         counter  = 0;
       }
     }
