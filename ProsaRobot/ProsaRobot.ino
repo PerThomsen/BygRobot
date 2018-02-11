@@ -45,7 +45,19 @@
 #define M_FORWARD LOW
 #define M_REVERSE HIGH
 
+                                        //=============== Globale variabler
 int bias = 0; // Kompensation til højre motor (for at den kører ligeud)
+
+int detectStateV=0; // Variable for reading the encoder status
+int detectStateH=0; // Variable for reading the encoder status
+int counter;
+int lastStateV;
+int newStateV;
+int counterV;
+int lastStateH;
+int newStateH;
+int counterH;
+int first = 1;
 
                                                    //=============== SETUP
 void setup() {
@@ -58,11 +70,16 @@ void setup() {
   digitalWrite( MOTOR_L_DIR, LOW );
   digitalWrite( MOTOR_L_PWM, LOW );
 
-  // Init højre motot
+  // Init højre motor
   pinMode( MOTOR_R_DIR, OUTPUT );
   pinMode( MOTOR_R_PWM, OUTPUT );
   digitalWrite( MOTOR_R_DIR, LOW );
   digitalWrite( MOTOR_R_PWM, LOW );
+
+  // Init encoder
+  pinMode(encoderInV, INPUT); //Set pin 8 as input
+  pinMode(encoderInH, INPUT); //Set pin 9 as input
+  
 }
 
 // Inverter
@@ -72,6 +89,43 @@ int invertOurValue(int input) {
 
 void measureRMP() { 
  // Aflæs omdrejninger (RPM Measurement)
+       detectStateV=digitalRead(encoderInV);
+       detectStateH=digitalRead(encoderInH);
+       counter++;
+       
+       if (detectStateV == HIGH) { //If encoder output is high
+          newStateV = 1;
+       } else {
+          newStateV = 0;          
+       }
+       if (lastStateV == newStateV) {
+        if (lastStateV == 0) lastStateV = 1; else lastStateV = 0;
+        counterV++;
+        //Serial.println(counter);
+       }
+
+       if (detectStateH == HIGH) { //If encoder output is high
+          newStateH = 1;
+       } else {
+          newStateH = 0;          
+       }
+       if (lastStateH == newStateH) {
+        if (lastStateH == 0) lastStateH = 1; else lastStateH = 0;
+        counterH++;
+        //Serial.println(counter);
+       }
+      if (counterV != counterH) {
+        Serial.print("Cnt1: ");  
+        Serial.print(counterV);
+        Serial.print(" Cnt2: ");  
+        Serial.println(counterH);
+      }
+      
+      if (counter == 10) {
+        counterV = 0;
+        counterH = 0;
+        counter  = 0;
+      }
 }
 
 void stopMotor() {
@@ -114,9 +168,9 @@ void runREW(){
 
 void speed(int speedL, int speedR, int mDir) {
     if (mDir == HIGH) {
-        //Hvis baglæns
-        speedL = invertOurValue( speedL );
-        speedR = invertOurValue( speedR );
+      //Hvis baglæns
+      speedL = invertOurValue( speedL );
+      speedR = invertOurValue( speedR );
     } 
     digitalWrite( MOTOR_L_DIR, mDir ); 
     digitalWrite( MOTOR_R_DIR, mDir );   
@@ -177,7 +231,11 @@ void motorTest() {
 
 //Main
 void loop() {
-  delay(1000);
-  runFW();
-  motorTest();
+  if (first == 1){
+    //delay(1000);
+    first = 0;
+  //}
+  runREW();
+  //motorTest();
+  measureRMP();
 }
