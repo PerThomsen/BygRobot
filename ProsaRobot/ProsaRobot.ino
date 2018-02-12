@@ -10,6 +10,9 @@
  * 
  * Program struktur:
  *  GLOBAL SETTINGS
+ *    Benforbindelser
+ *    Konstanter
+ *    Globale variabler
  *  SETUP
  *  LOOP (main)
  *  functions:
@@ -154,15 +157,15 @@ void spinLR() {
 
 void runFW(){
   // Kør forlæns
-    stopMotor();
-    delay( DIR_DELAY );
+    //stopMotor();
+    //delay( DIR_DELAY );
     speed(PWM_FAST, PWM_FAST + bias, M_FORWARD);
 }
 
 void runREW(){
   // Kør baglæns
-  stopMotor();
-  delay( DIR_DELAY );
+  //stopMotor();
+  //delay( DIR_DELAY );
   speed(PWM_FAST, PWM_FAST + bias, M_REVERSE);
 }
 
@@ -241,7 +244,7 @@ void loop() {
     first = 0;
   }
   */
-  //runREW();
-  motorTest();
-  //measureRMP();
+  runREW();
+  //motorTest();
+  measureRMP();
 }
