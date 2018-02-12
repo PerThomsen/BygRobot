@@ -124,10 +124,11 @@ void measureRMP() {
         Serial.println(counterH);
       }
       
-      if (counter == 10) {
+      if (counter == 100) {
         counterV = 0;
         counterH = 0;
         counter  = 0;
+        //delay(1000);
       }
 }
 
