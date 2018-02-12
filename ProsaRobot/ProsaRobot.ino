@@ -158,15 +158,15 @@ void spinLR() {
 
 void runFW(){
   // Kør forlæns
-    //stopMotor();
-    //delay( DIR_DELAY );
-    speed(PWM_FAST, PWM_FAST + bias, M_FORWARD);
+  // stopMotor();
+  // delay( DIR_DELAY );
+  speed(PWM_FAST, PWM_FAST + bias, M_FORWARD);
 }
 
 void runREW(){
   // Kør baglæns
-  //stopMotor();
-  //delay( DIR_DELAY );
+  // stopMotor();
+  // delay( DIR_DELAY );
   speed(PWM_FAST, PWM_FAST + bias, M_REVERSE);
 }
 
@@ -239,12 +239,6 @@ void motorTest() {
 
 //Main
 void loop() {
-  /*
-  if (first == 1){
-    delay(1000);
-    first = 0;
-  }
-  */
   runREW();
   //motorTest();
   measureRMP();
