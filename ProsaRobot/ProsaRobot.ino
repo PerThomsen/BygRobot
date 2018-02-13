@@ -5,7 +5,7 @@
  * Undgå forhindringer og undgå at køre ud over en kant
  *  
  * Sensorer:
- * Ping-sensor (ultralyd) 1 placeret centralt fortil
+ * 3 Ping-sensor (ultralyd). 1 placeret centralt fortil
  * og 2 placeret i hvert af de forreste hjørner 
  * 
  * Program struktur:
@@ -14,13 +14,16 @@
  *    Konstanter
  *    Globale variabler
  *  SETUP
- *  LOOP (main)
- *  functions:
- *  DRIVE
- *  (PRINT) debugging
+ *  INVERTER
+ *  RMP (Måler antal flanker. 40 = 1 omgang)
+ *  STOP MOTOR
+ *  KØR FORLÆNS
+ *  KØR BAGLÆNS
+ *  TURN LR (Drej venstre eller højre)
+ *  SPIN LR (Spin venstre eller højre)
+ *  HASTIGHED
  *  PING STATE
- *  IR STATE
- *  MOTOR STATE
+ *  LOOP (Hovedprogram)
  *  
  */
 
@@ -85,11 +88,12 @@ void setup() {
   
 }
 
-// Inverter
+                                                  // INVERTER
 int invertOurValue(int input) {
   return 255 - input;
 }
 
+                                                  // RMP
 void measureRMP() { 
  // Aflæs omdrejninger (RPM Measurement)
        detectStateV=digitalRead(encoderInV);
@@ -132,6 +136,7 @@ void measureRMP() {
       }
 }
 
+                                                  // STOP MOTOR
 void stopMotor() {
       // Altid stoppe motoren kortvarigt, for at gøre den klar til ændringer
       digitalWrite( MOTOR_L_DIR, LOW );
@@ -140,6 +145,23 @@ void stopMotor() {
       digitalWrite( MOTOR_R_PWM, LOW );
 }
 
+                                                  // KØR FORLÆNS
+void runFW(){
+  // Kør forlæns
+  // stopMotor();
+  // delay( DIR_DELAY );
+  speed(PWM_FAST, PWM_FAST + bias, M_FORWARD);
+}
+
+                                                  // KØR BAGLÆNS
+void runREW(){
+  // Kør baglæns
+  // stopMotor();
+  // delay( DIR_DELAY );
+  speed(PWM_FAST, PWM_FAST + bias, M_REVERSE);
+}
+
+                                                  // TURN LR
 void turnLR() {
       // Turn left or right
       // Der skal modtages 2 parametre
@@ -147,6 +169,7 @@ void turnLR() {
       // kald speed med de respektive paramertre
 }
 
+                                                  // SPIN LR
 void spinLR() {
       // Spin left or right
       // Der skal modtages 1 parameter (L/R)
@@ -156,20 +179,7 @@ void spinLR() {
  
 }
 
-void runFW(){
-  // Kør forlæns
-  // stopMotor();
-  // delay( DIR_DELAY );
-  speed(PWM_FAST, PWM_FAST + bias, M_FORWARD);
-}
-
-void runREW(){
-  // Kør baglæns
-  // stopMotor();
-  // delay( DIR_DELAY );
-  speed(PWM_FAST, PWM_FAST + bias, M_REVERSE);
-}
-
+                                                  // HASTIGHED
 void speed(int speedL, int speedR, int mDir) {
     if (mDir == HIGH) {
       //Hvis baglæns
@@ -183,7 +193,7 @@ void speed(int speedL, int speedR, int mDir) {
     analogWrite( MOTOR_R_PWM, speedR );           
 }
 
-//Main
+                                                  //MAIN
 void loop() {
   runREW();
   measureRMP();
