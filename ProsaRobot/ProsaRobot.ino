@@ -57,7 +57,7 @@ int bias = 0; // Kompensation til højre motor (for at den kører ligeud)
 // RMP variabler
 int detectStateV=0; // Variabel til aflæsning af venstre encoder status
 int detectStateH=0; // Variabel til aflæsning af højre encoder status
-int counter;
+//int counter;
 int lastStateV; // Venstre - Sidste status 
 int lastStateH; // Højre - Sidste status
 int newStateV;  // Venstre - Ny status
@@ -95,54 +95,60 @@ int invertOurValue(int input) {
 
                                                   // RMP
 void measureRMP() { 
- // Aflæs omdrejninger (RPM Measurement)
-       detectStateV=digitalRead(encoderInV);
-       detectStateH=digitalRead(encoderInH);
-       counter++;
-       
-       if (detectStateV == HIGH) { //If encoder output is high
-          newStateV = 1;
-       } else {
-          newStateV = 0;          
-       }
-       if (lastStateV == newStateV) {
-        if (lastStateV == 0) lastStateV = 1; else lastStateV = 0;
-        counterV++;
-        //Serial.println(counter);
-       }
-
-       if (detectStateH == HIGH) { //If encoder output is high
-          newStateH = 1;
-       } else {
-          newStateH = 0;          
-       }
-       if (lastStateH == newStateH) {
-        if (lastStateH == 0) lastStateH = 1; else lastStateH = 0;
-        counterH++;
-        //Serial.println(counter);
-       }
-      if (counterV != counterH) {
-        Serial.print("Cnt1: ");  
-        Serial.print(counterV);
-        Serial.print(" Cnt2: ");  
-        Serial.println(counterH);
-      }
-      
-      if (counter == 100) {
-        counterV = 0;
-        counterH = 0;
-        counter  = 0;
-        //delay(1000);
-      }
+  // Aflæs omdrejninger (RPM Measurement)
+  detectStateV=digitalRead(encoderInV);
+  detectStateH=digitalRead(encoderInH);
+  //counter++;
+  
+  if (detectStateV == HIGH) { //If encoder output is high
+    newStateV = 1;
+  } else {
+    newStateV = 0;          
+  }
+  if (detectStateH == HIGH) { //If encoder output is high
+    newStateH = 1;
+  } else {
+    newStateH = 0;          
+  }
+  
+  if (lastStateV == newStateV) {
+    if (lastStateV == 0) lastStateV = 1; else lastStateV = 0;
+    counterV++;
+    //Serial.println(counter);
+  }
+  
+  if (lastStateH == newStateH) {
+    if (lastStateH == 0) lastStateH = 1; else lastStateH = 0;
+    counterH++;
+    //Serial.println(counter);
+  }
+  bias = 0;
+  if (counterV != counterH) {
+    bias = (counterV - counterH);
+  }
+  
+  Serial.print("Cnt1: ");  
+  Serial.print(counterV);
+  Serial.print(" \tCnt2: ");  
+  Serial.print(counterH);
+  Serial.print(" \tBias: ");
+  Serial.println(bias);
+  
+  if (counterV == 20) {
+    counterV = 0;
+    counterH = 0;
+    //counter  = 0;
+    //delay(1000);
+  }
 }
 
                                                   // STOP MOTOR
 void stopMotor() {
-      // Altid stoppe motoren kortvarigt, for at gøre den klar til ændringer
-      digitalWrite( MOTOR_L_DIR, LOW );
-      digitalWrite( MOTOR_L_PWM, LOW );
-      digitalWrite( MOTOR_R_DIR, LOW );
-      digitalWrite( MOTOR_R_PWM, LOW );
+  // Altid stoppe motoren kortvarigt, for at gøre den klar til ændringer
+  digitalWrite( MOTOR_L_DIR, LOW );
+  digitalWrite( MOTOR_L_PWM, LOW );
+  digitalWrite( MOTOR_R_DIR, LOW );
+  digitalWrite( MOTOR_R_PWM, LOW );
 }
 
                                                   // KØR FORLÆNS
@@ -163,34 +169,33 @@ void runREW(){
 
                                                   // TURN LR
 void turnLR() {
-      // Turn left or right
-      // Der skal modtages 2 parametre
-      // L/R og faktor for hastighedsforskel
-      // kald speed med de respektive paramertre
+  // Turn left or right
+  // Der skal modtages 2 parametre
+  // L/R og faktor for hastighedsforskel
+  // kald speed med de respektive paramertre
 }
 
                                                   // SPIN LR
 void spinLR() {
-      // Spin left or right
-      // Der skal modtages 1 parameter (L/R)
-      // Motorene sættes til at køre modsat hinanden
-      // digitalWrite( MOTOR_L_DIR, M_FORWARD ); 
-      // digitalWrite( MOTOR_R_DIR, M_REVERSE );   
- 
+  // Spin left or right
+  // Der skal modtages 1 parameter (L/R)
+  // Motorene sættes til at køre modsat hinanden
+  // digitalWrite( MOTOR_L_DIR, M_FORWARD ); 
+  // digitalWrite( MOTOR_R_DIR, M_REVERSE );    
 }
 
                                                   // HASTIGHED
 void speed(int speedL, int speedR, int mDir) {
-    if (mDir == HIGH) {
-      //Hvis baglæns
-      speedL = invertOurValue( speedL );
-      speedR = invertOurValue( speedR );
-    } 
-    digitalWrite( MOTOR_L_DIR, mDir ); 
-    digitalWrite( MOTOR_R_DIR, mDir );   
+  if (mDir == HIGH) {
+    //Hvis baglæns
+    speedL = invertOurValue( speedL );
+    speedR = invertOurValue( speedR );
+  } 
+  digitalWrite( MOTOR_L_DIR, mDir ); 
+  digitalWrite( MOTOR_R_DIR, mDir );   
 
-    analogWrite( MOTOR_L_PWM, speedL );           
-    analogWrite( MOTOR_R_PWM, speedR );           
+  analogWrite( MOTOR_L_PWM, speedL );           
+  analogWrite( MOTOR_R_PWM, speedR );           
 }
 
                                                   //MAIN
