@@ -31,11 +31,11 @@
 #define encoderInH 9 // input højre 
 
 // Venstre motor benforbindelser
-#define MOTOR_L_PWM 11 // PIN D11 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA2) GUL
-#define MOTOR_L_DIR 13 // PIN D13 --> Motor B Input B --> MOTOR B  / Direction (IB2) ORANGE
+#define MOTOR_L_PWM 11 // PIN D11 --> MOTOR B+ / PWM Speed (IA2) GUL
+#define MOTOR_L_DIR 13 // PIN D13 --> MOTOR B  / Retning (IB2) ORANGE
 // Højre motor benforbindelser
-#define MOTOR_R_PWM 10 // PIN D10 --> Motor B Input A --> MOTOR B+ / PWM Speed (IA1) GRÅ
-#define MOTOR_R_DIR 12 // PIN D12 --> Motor B Input B --> MOTOR B  / Direction (IB1) HVID
+#define MOTOR_R_PWM 10 // PIN D10 --> MOTOR B+ / PWM Speed (IA1) GRÅ
+#define MOTOR_R_DIR 12 // PIN D12 --> MOTOR B  / Retning (IB1) HVID
 
                                         //=============== Konstanter 
 // Prefixed hastigheder
@@ -44,23 +44,23 @@
 #define PWM_FAST 200 // Fastsætter hurtig hastighed PWM duty cycle
 #define DIR_DELAY 1000 // Kort delay for at gøre motor klar til ændringer
 
-// Sætter retningskonstanter
+// Retningskonstanter
 #define M_FORWARD LOW
 #define M_REVERSE HIGH
 
                                         //=============== Globale variabler
 int bias = 0; // Kompensation til højre motor (for at den kører ligeud)
 
-int detectStateV=0; // Variable for reading the encoder status
-int detectStateH=0; // Variable for reading the encoder status
+// RMP variabler
+int detectStateV=0; // Variabel til aflæsning af venstre encoder status
+int detectStateH=0; // Variabel til aflæsning af højre encoder status
 int counter;
-int lastStateV;
-int newStateV;
-int counterV;
-int lastStateH;
-int newStateH;
-int counterH;
-int first = 1;
+int lastStateV; // Venstre - Sidste status 
+int lastStateH; // Højre - Sidste status
+int newStateV;  // Venstre - Ny status
+int newStateH;  // Højre - Ny status
+int counterV;   // Tæller flanker fra venstre encoder
+int counterH;   // Tæller flanker fra højre encoder
 
                                                    //=============== SETUP
 void setup() {
@@ -183,63 +183,8 @@ void speed(int speedL, int speedR, int mDir) {
     analogWrite( MOTOR_R_PWM, speedR );           
 }
 
-void motorTest() {
-  boolean isValidInput;
-  int bias = 0; // Kompensation til højre motor (for at den kører ligeud)
-  // draw a menu on the serial port
-  /*
-  Serial.println( "-----------------------------" );
-  Serial.println( "MENU:" );
-  Serial.println( "1) Fast forward" );
-  Serial.println( "3) Soft stop (coast)" );
-  Serial.println( "5) Fast reverse" );
-  Serial.println( "-----------------------------" );
-  /*/
-  do
-  {
-    byte c;
-    // get the next character from the serial port
-    //Serial.print( "?" );
-    while( !Serial.available() )
-      ; // LOOP...
-    c = Serial.read();
-    // execute the menu option based on the character recieved
-    switch( c )
-    {
-      case '1': // 1) Fast forward
-        //Serial.println( "Fast forward..." );
-        runFW();
-        isValidInput = true;
-        break;      
-                  
-      case '3': // 3) Soft stop (preferred)
-        //Serial.println( "Soft stop (coast)..." );
-        stopMotor();
-        isValidInput = true;
-        break;      
- 
-         
-      case '5': // 5) Fast reverse
-        //Serial.println( "Fast reverse..." );
-        runREW();
-        isValidInput = true;
-        break;
-                  
-      default:
-        // wrong character! display the menu again!
-        isValidInput = false;
-        break;
-    }
-    measureRMP();
-
-  } while( isValidInput == true );
-  
-  // Main slutter, og starter forfra.
-}
-
 //Main
 void loop() {
   runREW();
-  //motorTest();
   measureRMP();
 }
