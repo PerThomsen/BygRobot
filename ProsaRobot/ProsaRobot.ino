@@ -20,7 +20,7 @@
  *  KØR FORLÆNS
  *  KØR BAGLÆNS
  *  TURN LR (Drej venstre eller højre)
- *  SPIN LR (Spin venstre eller højre)
+ *  SPIN (Spin venstre eller højre)
  *  HASTIGHED
  *  PING STATE
  *  LOOP (Hovedprogram)
@@ -173,10 +173,23 @@ void turnLR() {
   // Der skal modtages 2 parametre
   // L/R og faktor for hastighedsforskel
   // kald speed med de respektive paramertre
+  switch (bias) {
+    case 5:
+      // 45 grd
+      break;
+    case 10:
+      // 90 grd
+      break;
+    case 20:
+      // 180 grd
+      break;
+    default:
+      // Ingenting
+  }  
 }
 
                                                   // SPIN LR
-void spinLR() {
+void spin() {
   // Spin left or right
   // Der skal modtages 1 parameter (L/R)
   // Motorene sættes til at køre modsat hinanden
