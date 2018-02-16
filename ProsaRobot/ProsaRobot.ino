@@ -57,12 +57,13 @@ int bias = 0; // Kompensation til højre motor (for at den kører ligeud)
 // RMP variabler
 int detectStateV=0; // Variabel til aflæsning af venstre encoder status
 int detectStateH=0; // Variabel til aflæsning af højre encoder status
-int lastStateV;     // Venstre - Sidste status 
-int lastStateH;     // Højre - Sidste status
-int newStateV;      // Venstre - Ny status
-int newStateH;      // Højre - Ny status
-int counterV;       // Tæller flanker fra venstre encoder
-int counterH;       // Tæller flanker fra højre encoder
+//int counter;
+int lastStateV; // Venstre - Sidste status 
+int lastStateH; // Højre - Sidste status
+int newStateV;  // Venstre - Ny status
+int newStateH;  // Højre - Ny status
+int counterV;   // Tæller flanker fra venstre encoder
+int counterH;   // Tæller flanker fra højre encoder
 
                                                    //=============== SETUP
 void setup() {
@@ -97,13 +98,14 @@ void measureRMP() {
   // Aflæs omdrejninger (RPM Measurement)
   detectStateV=digitalRead(encoderInV);
   detectStateH=digitalRead(encoderInH);
+  //counter++;
   
-  if (detectStateV == HIGH) { //Hvis V-encoder output er high
+  if (detectStateV == HIGH) { //If encoder output is high
     newStateV = 1;
   } else {
     newStateV = 0;          
   }
-  if (detectStateH == HIGH) { //Hvis H-encoder output er high
+  if (detectStateH == HIGH) { //If encoder output is high
     newStateH = 1;
   } else {
     newStateH = 0;          
@@ -112,11 +114,13 @@ void measureRMP() {
   if (lastStateV == newStateV) {
     if (lastStateV == 0) lastStateV = 1; else lastStateV = 0;
     counterV++;
+    //Serial.println(counter);
   }
   
   if (lastStateH == newStateH) {
     if (lastStateH == 0) lastStateH = 1; else lastStateH = 0;
     counterH++;
+    //Serial.println(counter);
   }
   bias = 0;
   if (counterV != counterH) {
@@ -133,6 +137,7 @@ void measureRMP() {
   if (counterV == 20) {
     counterV = 0;
     counterH = 0;
+    //counter  = 0;
     //delay(1000);
   }
 }
