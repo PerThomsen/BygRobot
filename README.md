@@ -7,7 +7,9 @@
 <br />
 Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 
-- [ ] Få robotten til at køre ligeud
+- [x] Få robotten til at køre ligeud
+- [ ] Arduinoen skal strømfødes særskilt
+- [ ] Evt mere power til motore
 - [ ] Få robotten til at dreje/vende
 - [ ] Lave kode for sensorene
 - [ ] Sammenbyg det hele
