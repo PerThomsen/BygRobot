@@ -123,6 +123,7 @@ void measureRMP() {
   if (counterV != counterH) {
     bias = (counterV - counterH);
   }
+  //bias = 20;
   
   Serial.print("Cnt1: ");  
   Serial.print(counterV);
@@ -181,6 +182,7 @@ void turnLR() {
       break;
     default:
       // Ingenting
+      break;
   }  
 }
 
