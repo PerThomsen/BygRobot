@@ -21,9 +21,9 @@ Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 - [Teensyduino (incl. Flip-flop)](https://www.pjrc.com/teensy/td_libs_Encoder.html)<br />
 - [Simpel pulslæser - Grundlag for ***SpeedSensor2***](http://www.electroschematics.com/10494/arduino-optical-position-rotary-encoder/)<br />
 - [Using Encoders to Drive Straight - Meget udførlig](http://www.robotc.net/wikiarchive/Tutorials/Arduino_Projects/Mobile_Robotics/VEX/Using_encoders_to_drive_straight)<br />
-- [Speedcontrole med interrupt](https://brainy-bits.com/blogs/tutorials/speed-sensor-with-arduino)<br />
 - [Arduino playground (med interrupts) - Grundlag for ***SpeedSensor3***](http://playground.arduino.cc/Main/RotaryEncoders#Example16)<br />
 - [God teori om motorer og Sensore - Grundlag for ***Simple_Motor_Speed_Control***](http://www.nutsvolts.com/magazine/article/smileys_workshop_an_avr_c_programming_series_part_17)<br />
 - [Teori - Tachometers vs Encoders](https://www.precisionmicrodrives.com/tech-blog/2015/12/03/tachometers-vs-encoders-whats-difference)<br />
 - [External interrupts](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/)<br />
 - [Speed sensing](https://sites.google.com/site/myscratchbooks/home/projects/project-11-infrared-speed-sensing-module)<br />
+- [Speedcontrole med interrupt](https://brainy-bits.com/blogs/tutorials/speed-sensor-with-arduino)<br />
