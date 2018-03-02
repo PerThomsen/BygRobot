@@ -26,4 +26,4 @@ Jeg forestiller mig at vi skal planlægge det videre forløb sådan:
 - [God teori om motorer og Sensore - Grundlag for ***Simple_Motor_Speed_Control***](http://www.nutsvolts.com/magazine/article/smileys_workshop_an_avr_c_programming_series_part_17)<br />
 - [Teori - Tachometers vs Encoders](https://www.precisionmicrodrives.com/tech-blog/2015/12/03/tachometers-vs-encoders-whats-difference)<br />
 - [External interrupts](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/)<br />
-
+- [Speed sensing](https://sites.google.com/site/myscratchbooks/home/projects/project-11-infrared-speed-sensing-module)<br />
